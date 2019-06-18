@@ -1,13 +1,13 @@
 <template>
         <tr>
-        <td>{{ film.id }}</td>
-        <td><img :src="'https://image.tmdb.org/t/p/w500' + film.poster_path" width="200px"></td>
-        <td>{{ film.title }}</td>
-        <td>{{ film.popularity }}</td> 
-        <td>{{ film.vote_average }}</td>
-        <td>{{ film.release_date }}</td>
-        <td><router-link class="button button-detail" :to="'detail/' + film.id ">Detail Film</router-link></td>
-        <!-- <td><a :href="film.url" target="_blank">{{film.url}}</a></td> -->
+        <td>{{ item.id }}</td>
+        <td><img :src="'https://image.tmdb.org/t/p/w500' + item.poster_path" width="200px"></td>
+        <td>{{ item.title }}</td>
+        <td>{{ item.popularity }}</td> 
+        <td>{{ item.vote_average }}</td>
+        <td>{{ item.release_date }}</td>
+        <td><router-link class="button button-detail" :to="{name:'detail',params:{id:item.id}}">Detail item</router-link></td>
+        <!-- <td><a :href="item.url" target="_blank">{{item.url}}</a></td> -->
         </tr>
 
 </template>
@@ -16,7 +16,7 @@
     export default {
         name: 'GetApi',
         props: {
-            film: Object,
+            item: Object,
             index: Number
         },
     }

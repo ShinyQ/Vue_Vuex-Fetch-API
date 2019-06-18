@@ -1,12 +1,7 @@
 <template>
   <div id="app">
         <h1>Marvel Movie API</h1>
-         <div v-if="loading" class="col-md-12">
-                <span class="progress">
-                        Sedang Mengambil Data ...
-                </span>
-        </div>
-        <div v-else>
+        <div>
             <table>
                 <thead>
                     <tr>
@@ -19,7 +14,7 @@
                     <th>Action</th>
                     </tr>
                 </thead>
-                <GetApi :film="film" v-for="(film, index) in films" :key="index"></GetApi>
+                <GetApi v-for="(item, index) in films"  :key="index" :item="item"></GetApi>
             </table>
         </div> 
   </div>
@@ -29,34 +24,18 @@
   import axios from 'axios'
   import GetApi from '../components/GetApi'
   export default {
-    name: 'app',
+    name: 'home',
     components: {    
       GetApi
     },
-    data: function () {
-      return {
-        films: [],
-        loading: true,
-        errored: false,
-      }
-    },
-    methods: {
-      fetchFilms: function () {
-        axios.get('https://api.themoviedb.org/3/list/1?api_key=56598d890c1a31aeed1fc0a5daddec30').then((response) => {
-          this.films = response.data.items
-          console.log(response.data.items)
-        }, (error) => {
-          console.log(error)
-        }).catch(error => {
-            console.log(error)
-            this.errored = true
-        })
-        .finally(() => this.loading = false)
-
+    computed:{
+      films () {
+        return this.$store.state.home.data.films 
       }
     },
     mounted: function () {
-      this.fetchFilms()
+       console.log(this.$store.dispatch('home/getFilms'))
+       this.$store.dispatch('home/getFilms')
     }
   }
 </script>
